@@ -29,3 +29,12 @@ test('User can add all product until checkout with problem user', async ({ page 
   await expect(page).toHaveURL(/inventory/)  
   await inventoryPage.addAllItemsToCart(); 
 })
+
+test('User can add all product until checkout with performance user', async ({ page }) => {
+  const loginPage = new LoginPage(page)
+  const inventoryPage = new InventoryPage(page)
+  await loginPage.goto();
+  await loginPage.login('performance_glitch_user', 'secret_sauce')
+  await expect(page).toHaveURL(/inventory/)  
+  await inventoryPage.addAllItemsToCart(); 
+})
