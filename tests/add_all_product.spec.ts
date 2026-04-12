@@ -38,3 +38,11 @@ test('User can add all product until checkout with performance user', async ({ p
   await expect(page).toHaveURL(/inventory/)  
   await inventoryPage.addAllItemsToCart(); 
 })
+
+test('User can add all product until checkout with locked user', async ({ page }) => {
+  const loginPage = new LoginPage(page)
+  const inventoryPage = new InventoryPage(page)
+  await loginPage.goto();
+  await loginPage.login('locked_out_user', 'secret_sauce')
+  await expect(page.locator('[data-test="error"]')).toBeVisible(); 
+})
