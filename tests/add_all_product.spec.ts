@@ -46,3 +46,11 @@ test('User can add all product until checkout with locked user', async ({ page }
   await loginPage.login('locked_out_user', 'secret_sauce')
   await expect(page.locator('[data-test="error"]')).toBeVisible(); 
 })
+
+test('User can add all product until checkout with invalid user', async ({ page }) => {
+  const loginPage = new LoginPage(page)
+  const inventoryPage = new InventoryPage(page)
+  await loginPage.goto();
+  await loginPage.login('invalid_user', 'secret_sauce')
+  await expect(page.locator('[data-test="error"]')).toBeVisible(); 
+})
