@@ -18,9 +18,9 @@ test('User can add all items to cart', async ({ page }) => {
   await inventoryPage.goToCart();
 
   // Verify items in cart
-  await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
-  await expect(page.getByText('Sauce Labs Bike Light')).toBeVisible();
-  await expect(page.getByText('Sauce Labs Bolt T-Shirt')).toBeVisible();
-  await expect(page.getByText('Sauce Labs Fleece Jacket')).toBeVisible();
-  await expect(page.getByText('Test.allTheThings() T-Shirt (Red)')).toBeVisible();
+  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Backpack' })).toBeVisible();
+  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Bike Light' })).toBeVisible();
+  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Bolt T-Shirt' })).toBeVisible();
+  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Fleece Jacket' })).toBeVisible();
+  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Test.allTheThings() T-Shirt (Red)' })).toBeVisible();
 });
