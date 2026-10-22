@@ -6,10 +6,11 @@ test.describe('Add product to cart', () => {
 
 
 test('User can add Sauce Labs Backpack to the cart', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-  await page.fill('#user-name', 'standard_user');
-  await page.fill('#password', 'secret_sauce');
-  await page.locator('#login-button').click();
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('standard_user', 'secret_sauce');
+  await expect(page).toHaveURL(/inventory/);
+  await expect(page.getByText('Products')).toBeVisible();
   await page.locator('img[alt="Sauce Labs Backpack"]').click();
   await page.click('#add-to-cart');
   await expect(page.getByText('Remove')).toBeVisible();
