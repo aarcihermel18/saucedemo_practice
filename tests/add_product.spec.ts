@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
+
+test.describe('Add product to cart', () => {
+  let loginPage: LoginPage;
+
 
 test('User can add Sauce Labs Backpack to the cart', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
@@ -127,3 +132,4 @@ test('Test.allTheThings() T-Shirt (Red)', async ({ page }) => {
   await expect(page.getByText('Thank you for your order!')).toBeVisible();
 
 })
+});
