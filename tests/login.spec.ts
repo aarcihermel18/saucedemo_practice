@@ -24,6 +24,6 @@ test('User can login to SauceDemo with problem user', async ({ page }) => {
   await expect(images).toHaveCount(6); // 6 products
   for (let i = 0; i < 6; i++) {
     // Check exact src for broken image
-  await expect(images.nth(i)).toHaveAttribute('src', '/static/media/sl-404.168b1cce10384b857a6f.jpg');
+  await expect(images.nth(i)).toHaveAttribute('src', '/assets/sl-404-Cq1a9k9X.jpg');
   }
 });
