@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 
 export class InventoryPage {
 
-  constructor(private page: Page) {}
+  constructor(private page: Page) { }
 
   // locators:
   locators = {
@@ -12,6 +12,7 @@ export class InventoryPage {
     addToCartFleeceJacket: () => this.page.locator('#add-to-cart-sauce-labs-fleece-jacket'),
     addToCartAllTheThingsTShirt: () => this.page.locator('#add-to-cart-test\\.allthethings\\(\\)-t-shirt-\\(red\\)'),
     shoppingCartLink: () => this.page.locator('.shopping_cart_link'),
+    shoppingCartBadge: () => this.page.locator('.shopping_cart_badge'),
     checkoutButton: () => this.page.locator('#checkout'),
     firstNameInput: () => this.page.locator('#first-name'),
     lastNameInput: () => this.page.locator('#last-name'),
@@ -28,10 +29,11 @@ export class InventoryPage {
     await this.locators.addToCartFleeceJacket();
     await this.locators.addToCartAllTheThingsTShirt();
   }
-
+  //actions:
   async goToCart(): Promise<void> {
-    await this.page.click('.shopping_cart_badge');
+    await this.locators.shoppingCartLink().click();
   }
 
+  // assertions:
 
 }
