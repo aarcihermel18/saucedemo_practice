@@ -1,26 +1,27 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 import { InventoryPage } from '../pages/inventory.page';
+import { FillupFormsPage } from '../pages/fillup-forms.page';
 
-test('User can add all items to cart', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const inventoryPage = new InventoryPage(page);
-
-  // Login
-  await loginPage.goto();
-  await loginPage.login('standard_user', 'secret_sauce');
-  await expect(page).toHaveURL(/inventory/);
-
-  // Add all items to cart
-  await inventoryPage.addAllItemsToCart();
-
-  // Go to cart
-  await inventoryPage.goToCart();
-
-  // Verify items in cart
-  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Backpack' })).toBeVisible();
-  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Bike Light' })).toBeVisible();
-  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Bolt T-Shirt' })).toBeVisible();
-  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Sauce Labs Fleece Jacket' })).toBeVisible();
-  await expect(page.locator('[data-test="inventory-item-name"]').filter({ hasText: 'Test.allTheThings() T-Shirt (Red)' })).toBeVisible();
+test.describe('Add all product to cart', () => {
+  test('User can add all product until checkout', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('standard_user', 'secret_sauce');
+    await expect(page).toHaveURL(/inventory/);
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.locators.addToCartBackpack().click();
+    await expect(inventoryPage.locators.shoppingCartBadge()).toHaveText('1');
+    await inventoryPage.locators.shoppingCartLink().click();
+    await expect(page).toHaveURL(/cart/);
+    const fillupFormsPage = new FillupFormsPage(page);
+    await fillupFormsPage.fillFirstName('John');
+    await fillupFormsPage.fillLastName('Doe');
+    await fillupFormsPage.fillPostalCode('12345');
+    await fillupFormsPage.clickContinueButton();
+    await expect(page).toHaveURL(/checkout-step-two/);
+    await expect(inventoryPage.locators.finishButton()).toBeVisible();
+    await page.locator('#finish').click();
+    await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
+  })
 });
