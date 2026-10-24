@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
-
+import { InventoryPage } from '../pages/products.page';
+import { FillupFormsPage }  from '../pages/checkout.page';
+ 
 test.describe('Add product to cart', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -11,25 +13,10 @@ test.describe('Add product to cart', () => {
   });
 
   test('User can add Sauce Labs Backpack to the cart', async ({ page }) => {
-    await expect(page.getByText('Products')).toBeVisible();
-    await page.locator('img[alt="Sauce Labs Backpack"]').click();
-    await page.click('#add-to-cart');
-    await expect(page.getByText('Remove')).toBeVisible();
-    await page.locator('.shopping_cart_link').click();
-    await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
-    await expect(page.getByText('Checkout')).toBeVisible();
-    await page.locator('#checkout').click();
-    await page.fill('#first-name', 'John');
-    await page.fill('#last-name', 'Doe');
-    await page.fill('#postal-code', '12345');
-    await page.locator('#continue').click();
-    await expect(page.locator('.summary_total_label')).toBeVisible();
-    await expect(page.getByText('Finish')).toBeVisible();
-    await page.locator('#finish').click();
-    await expect(page.getByText('Thank you for your order!')).toBeVisible();
-    await page.locator('#back-to-products').click();
-    await expect(page.getByText('Products')).toBeVisible();
-
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.locators.addToCartBackpack().click();
+    await expect(inventoryPage.locators.shoppingCartBadge()).toHaveText('1');
+    await inventoryPage.locators.shoppingCartBadge().click();
   });
 
   test('User can add Sauce Labs Bike Light to the cart', async ({ page }) => {

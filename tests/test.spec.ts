@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
-import { InventoryPage } from '../pages/inventory.page';
-import { FillupFormsPage } from '../pages/fillup-forms.page';
+import { InventoryPage } from '../pages/products.page';
+import { FillupFormsPage } from '../pages/checkout.page';
 
 test.describe('Add all product to cart', () => {
   test('User can add all product until checkout', async ({ page }) => {
