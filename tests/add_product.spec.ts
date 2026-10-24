@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 import { InventoryPage } from '../pages/products.page';
-import { FillupFormsPage }  from '../pages/checkout.page';
+import { FillupFormsPage }  from '../pages/checkout-your-information.page';
  
 test.describe('Add product to cart', () => {
 
