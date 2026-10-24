@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page,expect } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
@@ -26,5 +26,7 @@ export class LoginPage {
   }
 
 //assertions:
-  
+   async assertLoginErrorIsVisible(): Promise<void> {
+    await expect(this.page.locator('[data-test="error"]')).toBeVisible();
+  }
 }
