@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 import { InventoryPage } from '../pages/products.page';
-import { FillupFormsPage }  from '../pages/checkout-your-information.page';
+import { YourCartPage } from '../pages/your-cart.page.ts';
+import { FillupFormsPage } from '../pages/checkout-your-information.page.ts';
+import { CheckoutOverview } from '../pages/checkout-overview.page.ts';
+import { CompletePage } from '../pages/checkout-complete.page.ts';
+
  
 test.describe('Add product to cart', () => {
 
@@ -16,7 +20,22 @@ test.describe('Add product to cart', () => {
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.locators.addToCartBackpack().click();
     await expect(inventoryPage.locators.shoppingCartBadge()).toHaveText('1');
-    await inventoryPage.locators.shoppingCartBadge().click();
+    await inventoryPage.locators.shoppingCartLink().click();
+    const yourCartPage = new YourCartPage(page);
+    await yourCartPage.assertYourCartTitleIsVisible();
+    await yourCartPage.clickCheckoutButton();
+    const fillUpFormPage = new FillupFormsPage(page);
+    await fillUpFormPage.fillFirstName('Owen');
+    await fillUpFormPage.fillLastName('James');
+    await fillUpFormPage.fillPostalCode('3321');
+    await fillUpFormPage.clickContinueButton();
+    const checkOutPage = new CheckoutOverview(page);
+    await checkOutPage.SummaryTotalLabelShouldBeVisible();
+    await checkOutPage.GoToFinish();
+    const completePage = new CompletePage(page);
+    await completePage.assertCompleteTitleIsVisibe();
+    await completePage.assertCompleteHeaderIsVisible();
+    await completePage.CompleteHeaderIsVisible();
   });
 
   test('User can add Sauce Labs Bike Light to the cart', async ({ page }) => {

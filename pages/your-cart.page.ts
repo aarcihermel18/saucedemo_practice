@@ -6,7 +6,7 @@ export class YourCartPage {
     //locators
     locators = {
         YourCartTitle: () => this.page.locator('[data-test="title"]'),
-        CheckoutButton: () => this.page.locator('[data-test="title"]'),
+        CheckoutButton: () => this.page.locator('[data-test="checkout"]'),
     }
 
     //methods
@@ -23,5 +23,6 @@ export class YourCartPage {
     async assertYourCartTitleIsVisible(): Promise<void> {
         await expect(this.locators.YourCartTitle()).toBeVisible();
     }
+    
 
 }
