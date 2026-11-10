@@ -23,11 +23,11 @@ export class InventoryPage {
 
   //methods:
   async addAllItemsToCart(): Promise<void> {
-    await this.locators.addToCartBackpack();
-    await this.locators.addToCartBikeLight();
-    await this.locators.addToCartBoltTShirt();
-    await this.locators.addToCartFleeceJacket();
-    await this.locators.addToCartAllTheThingsTShirt();
+    await this.locators.addToCartBackpack().click();
+    await this.locators.addToCartBikeLight().click();
+    await this.locators.addToCartBoltTShirt().click();
+    await this.locators.addToCartFleeceJacket().click();
+    await this.locators.addToCartAllTheThingsTShirt().click();
   }
   //actions:
   async goToCart(): Promise<void> {
