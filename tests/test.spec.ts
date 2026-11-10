@@ -42,7 +42,7 @@ test.describe('Add all product to cart', () => {
     await inventoryPage.locators.continueButton().click();
     await expect(page).toHaveURL(/checkout-step-two/);
     await inventoryPage.locators.finishButton().click();
-    await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
+    await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
   })
 });
 

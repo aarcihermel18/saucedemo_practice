@@ -16,6 +16,9 @@ export class CompletePage {
  }
 
 //actions
+    async GoBackToProducts(): Promise<void> {
+        await this.locators.BackHome().click();
+    }
     
 //assertions
     async assertCompleteTitleIsVisibe(): Promise<void> {

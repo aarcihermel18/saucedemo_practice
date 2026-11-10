@@ -9,6 +9,7 @@ export class FillupFormsPage {
         LastNameInput: () => this.page.locator('[data-test="lastName"]'),
         PostalCodeInput: () => this.page.locator('[data-test="postalCode"]'),
         ContinueButton: () => this.page.locator('[data-test="continue"]'),
+        CancelButton: () => this.page.locator('[data-test="cancel"]')
     }
 
     //methods:
@@ -23,9 +24,16 @@ export class FillupFormsPage {
     async fillPostalCode(postalCode: string) {
         await this.locators.PostalCodeInput().fill(postalCode);
     }
+    async clickCancelButton() {
+        await this.locators.CancelButton().click();
+    }
 
     //actions:
     async clickContinueButton() {
         await this.locators.ContinueButton().click();
+    }
+
+    async cancelCheckout() {
+        await this.locators.CancelButton().click();
     }
 };
